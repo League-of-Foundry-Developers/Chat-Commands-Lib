@@ -8,46 +8,87 @@
 <!--- ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2F<your-module-name>&colorB=4aa94a) -->
 
 
-# How to use this Template to create a versioned Release
+# FoundryVTT Library: Chat Commands
 
-1. Open your repository's releases page.
+Allows for easy registration of custom chat commands such as /command.
 
-![Where to click to open repository releases.](https://user-images.githubusercontent.com/7644614/93409301-9fd25080-f864-11ea-9e0c-bdd09e4418e4.png)
-
-2. Click "Draft a new release"
-
-![Draft a new release button.](https://user-images.githubusercontent.com/7644614/93409364-c1333c80-f864-11ea-89f1-abfcb18a8d9f.png)
-
-3. Fill out the release version as the tag name.
-
-## <span color="red">Do not prefix your tag name with a `v`.</span>
-
-If you want to add details at this stage you can, or you can always come back later and edit them.
-
-![Release Creation Form](https://user-images.githubusercontent.com/7644614/93409543-225b1000-f865-11ea-9a19-f1906a724421.png)
-
-4. Hit submit.
-
-5. Wait a few minutes.
-
-A Github Action will run to populate the `module.json` and `module.zip` with the correct urls that you can then use to distribute this release. You can check on its status in the "Actions" tab.
-
-![Actions Tab](https://user-images.githubusercontent.com/7644614/93409820-c1800780-f865-11ea-8c6b-c3792e35e0c8.png)
-
-6. Grab the module.json url from the release's details page.
-
-![image](https://user-images.githubusercontent.com/7644614/93409960-10c63800-f866-11ea-83f6-270cc5d10b71.png)
-
-This `module.json` will only ever point at this release's `module.zip`, making it useful for sharing a specific version for compatibility purposes.
-
-7. You can use the url `https://github.com/<user>/<repo>/releases/latest/download/module.json` to refer to the manifest.
-
-This is the url you want to use to install the module typically, as it will get updated automatically.
+The library will handle multiple commands in a single string - if any are marked `shouldDisplayToChat`, then a single chat message is created with all commands stripped.
 
 
-# FoundryVTT Module
+# Chat Command class
 
-Does something, probably
+## commandKey
+
+Type: `string`
+The chat command, such as "/command"
+
+## shouldDisplayToChat
+
+Type: `boolean`
+
+If true, the command will be removed from the message and the message displayed to chat, such as "/command hi" -> "hi"
+If false, no message will be displayed
+
+## invokeOnCommand
+
+Type: `function`
+
+The function to invoke when the command is matched
+
+Example Function:
+
+```js
+function onCommandInvoke(chatlog, messageText, chatData) => {
+    console.log("Invoked Command");
+});
+```
+
+## createdMessageType
+
+Type: `integer`
+Default: `0` (Other)
+
+When `shouldDisplayToChat` is true, the type of message that should be created
+
+
+# Example
+
+```js
+Hooks.on("chatCommandsReady", function(chatCommands) {
+  // This Command will display the text after the command as well as invoke the method
+  let command = chatCommands.createCommand("/displaytochat", true, (chatlog, messageText, chatdata) => {
+    console.log("Invoked /displaytochat");
+    console.log(messageText);
+  });
+  chatCommands.registerCommand(command);
+
+  // This will eat the command, displaying nothing to chat, as well as invoke the method
+  let command2 = chatCommands.createCommand("/dontdisplaytochat", false, (chatlog, messageText, chatdata) => {
+    console.log("Invoked /dontdisplaytochat");
+    console.log(messageText);
+  });
+  chatCommands.registerCommand(command2);
+
+  // This uses the optional createdMessageType option to make the created message "Out of Character"
+  let command3 = chatCommands.createCommand("/outofcharacter", true, (chatlog, messageText, chatdata) => {
+    console.log("Invoked /outofcharacter");
+    console.log(messageText);
+  }, 1);
+  chatCommands.registerCommand(command3);
+
+  // This modifies the text that will end up in the created message
+  let command4 = chatCommands.createCommand("/toupper", true, (chatlog, messageText, chatdata) => {
+    console.log("Invoked /toupper");
+    messageText = messageText.toUpperCase();
+    console.log(messageText);
+    return messageText;
+  });
+  chatCommands.registerCommand(command4);
+});
+```
 
 ## Changelog
 
+### v1.0.0
+
+Initial release

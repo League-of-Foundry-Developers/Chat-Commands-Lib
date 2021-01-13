@@ -1,42 +1,30 @@
 {
-  "name": "module",
-  "title": "New Module",
-  "description": "",
-  "version": "This is auto replaced",
-  "library": "false",
+  "name": "_chatcommands",
+  "title": "Library: Chat Commands",
+  "description": "Allows for easy registration of custom chat commands such as /command",
+  "version": "1.0.0",
+  "library": "true",
   "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "0.7.9",
+  "minimumCoreVersion": "0.6.2",
   "compatibleCoreVersion": "0.7.9",
   "authors": [
     {
+      "name": "Cody Swendrowski",
+      "url": "https://swendrowski.us",
+      "email": "cody@swendrowski.us",
+      "discord": "cswendrowski#9701",
+      "patreon": "ironmoose"
+    },
+    {
       "name": "The League of Extraordinary FVTT Developers",
       "url": "https://github.com/League-of-Foundry-Developers",
-      "discord": "discordID#0001"
+      "discord": "https://discord.gg/Es2Bv9MyaR"
     }
-  ],
-  "dependencies": [
-
-  ],
-  "conflicts": [
-    
   ],
   "esmodules": [
     "/scripts/module.js"
   ],
-  "scripts": [
-    "/scripts/lib/lib.js"
-  ],
-  "styles": [
-    "/styles/module.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
-    }
-  ],
-  "url": "https://github.com/<USER>/FoundryVTT-module",
+  "url": "https://github.com/League-of-Foundry-Developers/FoundryVTT-Chat-Commands-Lib",
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
   "media": [
