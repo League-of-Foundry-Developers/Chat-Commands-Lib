@@ -51,7 +51,7 @@ Default: `0` (Other)
 When `shouldDisplayToChat` is true, the type of message that should be created
 
 
-# Example
+# Example Usage
 
 ```js
 Hooks.on("chatCommandsReady", function(chatCommands) {
