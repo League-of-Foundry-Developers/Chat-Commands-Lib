@@ -7,7 +7,13 @@
 <!--- replace <your-module-name> with the `name` in your manifest -->
 <!--- ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2F<your-module-name>&colorB=4aa94a) -->
 
-# Include as a dependency in your manifest
+# FoundryVTT Library: Chat Commands
+
+Allows for easy registration of custom chat commands such as /command.
+
+The library will handle multiple commands in a single string - if any are marked `shouldDisplayToChat`, then a single chat message is created with all commands stripped.
+
+## Include as a dependency in your manifest
 
 ```json
 {
@@ -16,14 +22,6 @@
     "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/beta1-1.0.0/module.json"
 }
 ```
-
-
-# FoundryVTT Library: Chat Commands
-
-Allows for easy registration of custom chat commands such as /command.
-
-The library will handle multiple commands in a single string - if any are marked `shouldDisplayToChat`, then a single chat message is created with all commands stripped.
-
 
 # Chat Command class
 
