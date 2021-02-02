@@ -1,9 +1,15 @@
 export default class ChatCommand {
-    constructor(commandKey, shouldDisplayToChat, invokeOnCommand, createdMessageType = 0) {
+
+  /**
+   * @deprecated in favor of the data constructor
+   */
+    constructor(commandKey, shouldDisplayToChat, invokeOnCommand, createdMessageType, iconClass, description) {
         this.commandKey = commandKey;
         this.shouldDisplayToChat = shouldDisplayToChat;
         this.invokeOnCommand = invokeOnCommand;
         this.createdMessageType = createdMessageType;
+        this.iconClass = iconClass;
+        this.description = description;
     }
 
   // /**

@@ -14,8 +14,29 @@ export default class ChatCommands {
         this.registeredCommands.push(command);
     }
 
+    /**
+     * @deprecated in favor of createCommandFromData(data)
+     */
     createCommand(commandKey, shouldDisplayToChat, invokeOnCommand, createdMessageType = 0) {
-        return new ChatCommand(commandKey, shouldDisplayToChat, invokeOnCommand, createdMessageType);
+        return new ChatCommand(commandKey, shouldDisplayToChat, invokeOnCommand, createdMessageType, "fa-terminal", "No description provided");
+    }
+
+    createCommandFromData(data) {
+        return new ChatCommand(
+            data.commandKey, 
+            this._getOrDefault(data.shouldDisplayToChat, false), 
+            data.invokeOnCommand,
+            this._getOrDefault(data.createdMessageType, 0),
+            this._getOrDefault(data.iconClass, "fa-terminal"),
+            this._getOrDefault(data.description, "No description provided")
+        );
+    }
+
+    _getOrDefault(value, defaultValue) {
+        if (value != undefined) {
+            return value;
+        }
+        return defaultValue
     }
 
     handleChatMessage(chatlog, messageText, chatData) {
