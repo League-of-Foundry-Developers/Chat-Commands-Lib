@@ -13,6 +13,8 @@ Allows for easy registration of custom chat commands such as `/command`, complet
 
 The library will handle multiple commands in a single string - if any are marked `shouldDisplayToChat`, then a single chat message is created with all commands stripped.
 
+As of v1.2.0, Core Command autocomplete is included as part of the library
+
 ![](./chatcommandsautocomplete.gif)
 
 ## Include as a dependency in your manifest
@@ -21,7 +23,7 @@ The library will handle multiple commands in a single string - if any are marked
 {
     "name": "_chatcommands",
     "type": "module",
-    "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.1.0/module.json"
+    "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json"
 }
 ```
 
@@ -143,7 +145,7 @@ Hooks.on("chatCommandsReady", function(chatCommands) {
 
 ### v1.0.0
 
-Initial release
+* Initial release
 
 ### v1.1.0
 
@@ -151,3 +153,7 @@ Initial release
 * Added autocomplete for commands (on by default, client setting)
 * Added IconClass
 * Added Description
+
+### v1.2.0
+
+* Added Core Command autocomplete
