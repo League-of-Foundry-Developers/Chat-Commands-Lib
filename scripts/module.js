@@ -15,7 +15,15 @@ Hooks.once('ready', function() {
         config: true,
         type: Boolean,
         default: true
-      });
+    });
+
+    game.settings.register("_chatcommands", "includeCoreCommands", {
+        name: "Should core commands be included in autocomplete?",
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: true
+    });
 
 
     Hooks.callAll("chatCommandsReady", chatCommands);

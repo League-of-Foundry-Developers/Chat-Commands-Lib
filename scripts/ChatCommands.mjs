@@ -15,6 +15,21 @@ export default class ChatCommands {
     }
 
     /**
+     * Deregister a Chat Command
+     * @param command @typedef {Object} ChatCommand
+     */
+    deregisterCommand(command) {
+        ChatCommands._removeFromArray(this.registeredCommands, command);
+    }
+
+    static _removeFromArray(array, element) {
+        const index = array.indexOf(element);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+    }
+
+    /**
      * @deprecated in favor of createCommandFromData(data)
      */
     createCommand(commandKey, shouldDisplayToChat, invokeOnCommand, createdMessageType = 0) {
@@ -28,7 +43,8 @@ export default class ChatCommands {
             data.invokeOnCommand,
             this._getOrDefault(data.createdMessageType, 0),
             this._getOrDefault(data.iconClass, "fa-terminal"),
-            this._getOrDefault(data.description, "No description provided")
+            this._getOrDefault(data.description, "No description provided"),
+            this._getOrDefault(data.gmOnly, false)
         );
     }
 
@@ -47,6 +63,7 @@ export default class ChatCommands {
             let registeredCommand = this.registeredCommands[x];
             var commandKey = registeredCommand.commandKey.toLowerCase();
             if (commandKey != "" && matchString.includes(commandKey)) {
+                if (registeredCommand.gmOnly && !game.user.isGM) continue;
                 matchedCommands.push(registeredCommand);
             }
         }

@@ -31,7 +31,7 @@ export default class Autocomplete {
 
             resetGhostText();
             const val = $("#chat-message").val();
-            console.log(val);
+            //console.log(val);
             if (val.match(regex)) {
     
                 // It's a commands! Show a menu of commands and typeahead text if possible
@@ -39,25 +39,33 @@ export default class Autocomplete {
                 // console.log(splt);
 
                 let input = val;
-                
-                let matchingPlayers = window.game.chatCommands.registeredCommands.filter((target) => {
+
+
+                let allCommands = [];
+                allCommands = allCommands.concat(window.game.chatCommands.registeredCommands);
+
+                if (game.settings.get("_chatcommands", "includeCoreCommands")) {
+                    allCommands = allCommands.concat(_getCoreCommands());
+                }
+
+                let matchingCommands = allCommands.filter((target) => {
                     const p = target.commandKey.toUpperCase();
                     const i = val.toUpperCase();
                     return p.indexOf(i) >= 0 && p !== i;
                 });
 
-                console.log(matchingPlayers);
+                //console.log(matchingCommands);
 
-                if (matchingPlayers.length > 0) {
+                if (matchingCommands.length > 0) {
     
                     // At least one potential target exists.
                     // show ghost text to autocomplete if there's a match starting with the characters already typed
-                    ghostText(input, matchingPlayers);
+                    ghostText(input, matchingCommands);
                     // set up and display the menu of whisperable names
                     let listOfPlayers = "";
-                    for (let p in matchingPlayers) {
+                    for (let p in matchingCommands) {
                         if (isNaN(p)) continue;
-                        let command = matchingPlayers[p];
+                        let command = matchingCommands[p];
                         const name = command.commandKey;
                         let nameHtml = name;
                         let startIndex = name.toUpperCase().indexOf(input.toUpperCase());
@@ -82,6 +90,95 @@ export default class Autocomplete {
             } else {
                 closeWhisperMenu();
             }
+        }
+
+        function _getCoreCommands() {
+            let commands = [];
+
+            let chatCommands = window.game.chatCommands;
+
+            commands.push(chatCommands.createCommandFromData({
+                commandKey: "/ic",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Speak in character"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/ooc",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Speak out of character"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/emote",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Emote in character"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/whisper",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Send a whisper to another player"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/w",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Send a whisper to another player"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/roll",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Roll dice"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/gmroll",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Roll dice that only the GM can see"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/blindroll",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Roll dice that are hidden"
+              }));
+            
+              commands.push(chatCommands.createCommandFromData({
+                commandKey: "/selfroll",
+                invokeOnCommand: (chatlog, messageText, chatdata) => {
+                },
+                shouldDisplayToChat: false,
+                iconClass: "fa-dice-d20",
+                description: "Roll dice that only you can see"
+              }));
+
+            return commands;
         }
     
         function listFinishHandler(e) {

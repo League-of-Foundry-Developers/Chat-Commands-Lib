@@ -24,6 +24,9 @@
   "esmodules": [
     "/scripts/module.js"
   ],
+  "styles": [
+    "styles/chatcommands.css"
+  ],
   "url": "https://github.com/League-of-Foundry-Developers/FoundryVTT-Chat-Commands-Lib",
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",

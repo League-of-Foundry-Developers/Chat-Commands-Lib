@@ -78,13 +78,20 @@ Default: `No description provided`
 
 A string to display in autocomplete results to help a user pick the right command
 
+## gmOnly
+
+Type: `boolean`
+Default: `false`
+
+If true, the command will only be executed if the current user is a GM
+
 
 # Example Usage
 
 ```js
 Hooks.on("chatCommandsReady", function(chatCommands) {
 
-  // This Command will display the text after the command as well as invoke the method
+  // (GM Only) This Command will display the text after the command as well as invoke the method
   chatCommands.registerCommand(chatCommands.createCommandFromData({
     commandKey: "/displaytochat",
     invokeOnCommand: (chatlog, messageText, chatdata) => {
@@ -93,7 +100,8 @@ Hooks.on("chatCommandsReady", function(chatCommands) {
     },
     shouldDisplayToChat: true,
     iconClass: "fa-sticky-note",
-    description: "Display to chat"
+    description: "Display to chat",
+    gmOnly: true
   }));
 
 
@@ -125,7 +133,7 @@ Hooks.on("chatCommandsReady", function(chatCommands) {
 
 
   // This modifies the text that will end up in the created message
-  chatCommands.registerCommand(chatCommands.createCommandFromData({
+  var command = chatCommands.createCommandFromData({
     commandKey: "/toupper",
     invokeOnCommand: (chatlog, messageText, chatdata) => {
       console.log("Invoked /toupper");
@@ -136,8 +144,12 @@ Hooks.on("chatCommandsReady", function(chatCommands) {
     shouldDisplayToChat: true,
     iconClass: "fa-sticky-note",
     description: "Uppercases text"
-  }));
+  });
 
+  chatCommands.registerCommand(command);
+
+  // Actually, deregister it
+  chatCommands.deregisterCommand(command);
 });
 ```
 
@@ -157,3 +169,10 @@ Hooks.on("chatCommandsReady", function(chatCommands) {
 ### v1.2.0
 
 * Added Core Command autocomplete
+
+### v1.3.0
+
+* Added `deregisterCommand`
+* Added `gmOnly` command option
+* CSS fixes, including compatibility with Dice Tray
+* Removed extraneous logs
