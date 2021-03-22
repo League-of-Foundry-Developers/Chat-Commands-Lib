@@ -14,9 +14,7 @@ export default class Autocomplete {
         $("#chat-message").after($ghostTextarea);
 
         /* Unbind original FVTT chat textarea keydown handler and implemnt our own to catch up/down keys first */
-        if (game.modules.get("autocomplete-whisper") == undefined) {
-            $("#chat-message").off("keydown");
-        }
+        $("#chat-message").off("keydown");
         $("#chat-message").on("keydown.menufocus", jumpToMenuHandler);
         /* Listen for chat input. Do stuff.*/
         $("#chat-message").on("input.whisperer", handleChatInput);
