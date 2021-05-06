@@ -12,6 +12,7 @@
     outline: none;
     pointer-events: none;
     background: transparent;
+    display: none;
   }
   
   .chatghosttextarea:not(.show) {
