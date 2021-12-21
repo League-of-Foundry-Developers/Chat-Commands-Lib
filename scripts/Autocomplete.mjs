@@ -204,6 +204,17 @@ export default class Autocomplete {
                     return false;
                 }
             }
+            if (game.modules.get("autocomplete-whisper") != undefined) {
+              if ($("#whisper-menu").find("li").length) {
+                if (e.which === 38) { // `up`
+                  $("#whisper-menu li:last-child").focus();
+                  return false;
+                } else if (e.which === 40) { // `down`
+                  $("#whisper-menu li:first-child").focus();
+                  return false;
+                }
+              }
+            }
             // if player menu is not visible/DNE, execute FVTT's original keydown handler
             ui.chat._onChatKeyDown(e);
         }

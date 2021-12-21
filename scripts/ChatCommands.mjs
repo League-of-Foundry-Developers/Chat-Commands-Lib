@@ -62,7 +62,7 @@ export default class ChatCommands {
         for (var x = 0; x < this.registeredCommands.length; x++) {
             let registeredCommand = this.registeredCommands[x];
             var commandKey = registeredCommand.commandKey.toLowerCase();
-            if (commandKey != "" && matchString.includes(commandKey)) {
+            if (commandKey != "" && matchString.startsWith(commandKey)) {
                 if (registeredCommand.gmOnly && !game.user.isGM) continue;
                 matchedCommands.push(registeredCommand);
             }
