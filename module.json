@@ -5,8 +5,10 @@
   "version": "1.0.0",
   "library": "true",
   "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "0.6.2",
-  "compatibleCoreVersion": "9",
+  "compatibility": {
+    "minimum": "0.6.2",
+    "verified": "9"
+  },
   "authors": [
     {
       "name": "Cody Swendrowski",
