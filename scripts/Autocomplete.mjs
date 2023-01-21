@@ -17,9 +17,24 @@ export default class Autocomplete {
         /* Add our UI to the DOM */
         $("#chat-message").before($whisperMenuContainer);
 
-        /* Unbind original FVTT chat textarea keydown handler and implemnt our own to catch up/down keys first */
-        $("#chat-message").off("keydown");
-        $("#chat-message").on("keydown.menufocus", jumpToMenuHandler);
+        /**
+         * Binds an event handler so that it is executed before other handlers on the
+         *  same element. Note that handlers defined in the DOM can still run before it.
+         * @param {jQuery} element The parent JQuery element to bind the listeners on.
+         * @param {String} eventName The name and namespace of the event.
+         * @param {String?} selector An optional selector that the event will be active for.
+         * @param {Function} eventHandler The handler of the event.
+         * @returns {jQuery} The original JQuery element for easier chaining.
+         */
+        function onFirst(element, eventName, selector, eventHandler) {
+            element.on(eventName, selector, eventHandler);
+
+            let handlers = jQuery._data(element[0]).events[eventName.split('.')[0]];
+            handlers.unshift(handlers.pop());
+            return element;
+        }
+
+        onFirst($("#chat-message"), "keydown.menufocus", jumpToMenuHandler);
         /* Listen for chat input. Do stuff.*/
         $("#chat-message").on("input.whisperer", handleChatInput);
         /* Listen for "]" to close an array of targets (names) */
@@ -208,19 +223,6 @@ export default class Autocomplete {
                     return false;
                 }
             }
-            if (game.modules.get("autocomplete-whisper") != undefined) {
-              if ($("#whisper-menu").find("li").length) {
-                if (e.which === 38) { // `up`
-                  $("#whisper-menu li:last-child").focus();
-                  return false;
-                } else if (e.which === 40) { // `down`
-                  $("#whisper-menu li:first-child").focus();
-                  return false;
-                }
-              }
-            }
-            // if player menu is not visible/DNE, execute FVTT's original keydown handler
-            ui.chat._onChatKeyDown(e);
         }
     
         function menuNavigationHandler(e) {
