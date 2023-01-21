@@ -4,14 +4,18 @@ export default class Autocomplete {
     handleRenderSidebarTab(app, html, data) {
         /* Set up markup for our UI to be injected */
         const $whisperMenuContainer = $('<div id="command-menu"></div>');
-        const $ghostTextarea = $('<textarea class="chatghosttextarea" autocomplete="off" readonly disabled></textarea>');
         let $whisperMenu = $('<nav id="context-menu" class="expand-up"><ol class="context-items"></ol></nav>');
+
+        if (!game.modules.get("autocomplete-whisper")?.active) {
+            // Create preview field when Autocomplete Whisper is not active.
+            const $ghostTextarea = $('<textarea class="chatghosttextarea" autocomplete="off" readonly disabled></textarea>');
+            $("#chat-message").after($ghostTextarea);
+        }
 
         let regex = new RegExp("\/[A-z]*");
 
         /* Add our UI to the DOM */
         $("#chat-message").before($whisperMenuContainer);
-        $("#chat-message").after($ghostTextarea);
 
         /* Unbind original FVTT chat textarea keydown handler and implemnt our own to catch up/down keys first */
         $("#chat-message").off("keydown");
