@@ -1,11 +1,16 @@
-![](https://img.shields.io/badge/Foundry-v0.7.9-informational)
-<!--- Downloads @ Latest Badge -->
-<!--- replace <user>/<repo> with your username/repository -->
-<!--- ![Latest Release Download Count](https://img.shields.io/github/downloads/<user>/<repo>/latest/module.zip) -->
+# Migration notice
 
-<!--- Forge Bazaar Install % Badge -->
-<!--- replace <your-module-name> with the `name` in your manifest -->
-<!--- ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2F<your-module-name>&colorB=4aa94a) -->
+This module is now being maintained by **DJ Addi**. Please report [issues and feature requests](https://gitlab.com/woodentavern/foundryvtt-chat-command-lib/-/issues) on the [new repository](https://gitlab.com/woodentavern/foundryvtt-chat-command-lib).
+
+* The module name was changed to **Chat Commander** to reflect the new user facing features.
+* The [license](https://gitlab.com/woodentavern/foundryvtt-chat-command-lib/-/blob/master/LICENSE) has stayed the same.
+* The [documentation](https://gitlab.com/woodentavern/foundryvtt-chat-command-lib/-/blob/master/README.md) contains a lot of new information and examples. Existing features and APIs were deprecated and should work *for now*, but will be removed in a future version.
+* Moving forward, the [changelog](https://gitlab.com/woodentavern/foundryvtt-chat-command-lib/-/blob/master/CHANGELOG.md) will be updated on this link. Check it out for a quick overview of the changes for version 2.0.0.
+
+Below, you can find the legacy documentation. Please be aware that this is no longer up to date and might not work as expected.
+
+---
+
 
 # FoundryVTT Library: Chat Commands
 
